@@ -7,6 +7,7 @@ function HelloWorld(){
 // 2 = "Scissors"
 
 const max_choices = 3;
+const rounds = 5;
 
 // This function will returned random choices between 0-2  Note: changes the max_choices var to change the return value.
 function getComputerChoice(){
@@ -29,10 +30,11 @@ function getHumanChoice(){
     return choice;
 }
 
-let ComputerScore = 0;
-let HumanScore = 0;
 
-function PlayRound(humanChoice,computerChoice){
+
+function PlayGame(){
+
+    function PlayRound(humanChoice,computerChoice){
 
     if (humanChoice === computerChoice)     // Check if draw.
     {
@@ -47,5 +49,27 @@ function PlayRound(humanChoice,computerChoice){
     else{               // Other case computer wins.
         ComputerScore += 1
         console.log(`Bad choices!  ${computerChoice} beat ${humanChoice}`)
+    }
+    }
+
+    let humanChoice = "";
+    let computerChoice = "";
+    let ComputerScore = 0;
+    let HumanScore = 0;
+
+    for(let round = 0;round<=rounds;round++){
+        humanChoice = getHumanChoice();
+        computerChoice = getComputerChoice();
+        PlayRound(humanChoice,computerChoice);
+    }
+    
+    if(HumanScore>ComputerScore){
+        console.log(`You win! with score ${HumanScore} : ${ComputerScore}`);
+    }
+    else if(HumanScore<ComputerScore){
+        console.log(`You lose! with score Your score ${HumanScore} || Computer score :${ComputerScore}`);
+    }
+    else{
+        console.log(`Draw!! nice match btw.`)
     }
 }
