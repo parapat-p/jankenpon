@@ -46,6 +46,6 @@ function PlayRound(humanChoice,computerChoice){
     }
     else{               // Other case computer wins.
         ComputerScore += 1
-        console.log(`Bad choices!  ${computerChoice} beat ${computerChoice}`)
+        console.log(`Bad choices!  ${computerChoice} beat ${humanChoice}`)
     }
 }
