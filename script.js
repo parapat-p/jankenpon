@@ -33,29 +33,32 @@ function getHumanChoice(){
 
 
 function PlayGame(){
-
-    function PlayRound(humanChoice,computerChoice){
-
-    if (humanChoice === computerChoice)     // Check if draw.
-    {
-        return "Both select"
-    }
-    else if(( (humanChoice === "rock" ) && (computerChoice == "scissor") ) ||        // Human : Rock    VS Computer : Scissor
-            ( (humanChoice === "paper" ) && (computerChoice == "rock") ) ||        // Human : Paper   VS Computer : Rock
-            ( (humanChoice === "scissor" ) && (computerChoice == "paper") ) ) {       // Human : Scissor VS Computer : Paper
-            HumanScore += 1;
-            console.log(`You win nice choice!  ${humanChoice} beat ${computerChoice}`)
-    }
-    else{               // Other case computer wins.
-        ComputerScore += 1
-        console.log(`Bad choices!  ${computerChoice} beat ${humanChoice}`)
-    }
-    }
-
     let humanChoice = "";
     let computerChoice = "";
     let ComputerScore = 0;
     let HumanScore = 0;
+
+    function PlayRound(humanChoice,computerChoice){
+        if (humanChoice === computerChoice)     // Check if draw.
+        {
+            console.log(`Draw!! Both select ${humanChoice}`) ;
+        }
+        else if(( (humanChoice === "rock" ) && (computerChoice == "scissor") ) ||       // Human : Rock    VS Computer : Scissor
+                ( (humanChoice === "paper" ) && (computerChoice == "rock") ) ||        // Human : Paper   VS Computer : Rock
+                ( (humanChoice === "scissor" ) && (computerChoice == "paper") ) )      // Human : Scissor VS Computer : Paper
+        {       
+                HumanScore += 1;
+                console.log(`You win nice choice!  ${humanChoice} beat ${computerChoice}`)
+                
+        }
+        else{               // Other case computer wins.
+            ComputerScore += 1
+            console.log(`Bad choices!  ${computerChoice} beat ${humanChoice}`)
+        }
+        console.log(`Current Score $Your score ${HumanScore} || Computer score :${ComputerScore}`)
+        return;
+    }
+
 
     for(let round = 0;round<=rounds;round++){
         humanChoice = getHumanChoice();
@@ -72,4 +75,5 @@ function PlayGame(){
     else{
         console.log(`Draw!! nice match btw.`)
     }
+    return;
 }
