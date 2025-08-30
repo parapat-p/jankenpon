@@ -16,7 +16,16 @@ function getComputerChoice(){
 // get human choice from prompt input
 function getHumanChoice(){
     let choice = prompt("Enter your choices");
-    return choice;
+    choice = choice.toLowerCase();
+    if(choice==="rock"){
+        return 0;
+    }
+    else if(choice==="paper"){
+        return 1;
+    }
+    else{
+        return 2;
+    }
 }
 
 let ComputerScore = 0;
