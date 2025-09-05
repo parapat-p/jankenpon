@@ -4,6 +4,7 @@
 const max_choices:number = 3;
 const totalRound = 5;
 
+let currentRound:number = 1;
 let playerScore:number = 0;
 let computerScore:number = 0;
 
@@ -22,6 +23,7 @@ function getComputerChoice(){
 }
 
 function playRound(playerInput:string,computerInput:string){
+    currentRound += 1;
     if (playerInput === computerInput)     // Check if draw.
         {
             // console.log(`Draw!! Both select ${playerInput}`) ;
@@ -50,12 +52,15 @@ const gameLog = document.createElement('div');
 const logLinks = document.createElement('ul');
 const delBtn = document.createElement('button');
 delBtn.textContent = "Delete logs / Restart"
-delBtn.addEventListener("click",() => {
+delBtn.addEventListener("click",resetGame);
+
+function resetGame(){
     logLinks.replaceChildren();
     playerScore = 0;
     computerScore = 0;
+    currentRound = 0;
     updateScore();
-})
+}
 
 function updateScore(){
     scoreBoard.textContent = `Player : ${playerScore} ||  ${computerScore} : Computer`;
@@ -65,8 +70,26 @@ function createBtn(nameBtn:string){
     let button = document.createElement("button");
     button.textContent = nameBtn;
     button.addEventListener("click",() => {
-        addLog(playRound(button.textContent,getComputerChoice()));
-        updateScore();
+        if(currentRound<5){
+            addLog(playRound(button.textContent,getComputerChoice()));
+            updateScore();
+        }
+        else if(currentRound==5){
+            currentRound+=1;
+            if(playerScore > computerScore){
+                addLog("Player Win!");
+            }
+            else if(computerScore> playerScore){
+                addLog("Computer Win!");
+            }
+            else{
+                addLog("Draw!!");
+            }
+        addLog("Please click the reset button to start game again!");
+        }
+        else{
+            // Do nothing
+        }
     })
     return button;
 }
@@ -76,8 +99,6 @@ function addLog(log:string){
     log_item.textContent = log;
     logLinks.appendChild(log_item);
 }
-
-
 
 function instantiateGame(){
     if(gameSection){

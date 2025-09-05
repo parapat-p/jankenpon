@@ -2,7 +2,8 @@
 // 1 = "Paper"
 // 2 = "Scissors"
 var max_choices = 3;
-var rounds = 5;
+var totalRound = 5;
+var currentRound = 1;
 var playerScore = 0;
 var computerScore = 0;
 // This function will returned random choices between 0-2  Note: changes the max_choices var to change the return value.
@@ -19,6 +20,7 @@ function getComputerChoice() {
     }
 }
 function playRound(playerInput, computerInput) {
+    currentRound += 1;
     if (playerInput === computerInput) // Check if draw.
      {
         // console.log(`Draw!! Both select ${playerInput}`) ;
@@ -44,10 +46,15 @@ var scoreBoard = document.createElement("p");
 var gameLog = document.createElement('div');
 var logLinks = document.createElement('ul');
 var delBtn = document.createElement('button');
-delBtn.textContent = "Delete logs";
-delBtn.addEventListener("click", function () {
+delBtn.textContent = "Delete logs / Restart";
+delBtn.addEventListener("click", resetGame);
+function resetGame() {
     logLinks.replaceChildren();
-});
+    playerScore = 0;
+    computerScore = 0;
+    currentRound = 0;
+    updateScore();
+}
 function updateScore() {
     scoreBoard.textContent = "Player : ".concat(playerScore, " ||  ").concat(computerScore, " : Computer");
 }
@@ -55,8 +62,26 @@ function createBtn(nameBtn) {
     var button = document.createElement("button");
     button.textContent = nameBtn;
     button.addEventListener("click", function () {
-        addLog(playRound(button.textContent, getComputerChoice()));
-        updateScore();
+        if (currentRound < 5) {
+            addLog(playRound(button.textContent, getComputerChoice()));
+            updateScore();
+        }
+        else if (currentRound == 5) {
+            currentRound += 1;
+            if (playerScore > computerScore) {
+                addLog("Player Win!");
+            }
+            else if (computerScore > playerScore) {
+                addLog("Computer Win!");
+            }
+            else {
+                addLog("Draw!!");
+            }
+            addLog("Please click the reset button to start game again!");
+        }
+        else {
+            // Do nothing
+        }
     });
     return button;
 }
